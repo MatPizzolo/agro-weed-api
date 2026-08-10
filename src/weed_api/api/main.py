@@ -3,7 +3,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from weed_api.api.routes import health, predict
+from weed_api.api.routes import health, predict, species
 from weed_api.config import settings
 
 app = FastAPI(
@@ -21,3 +21,4 @@ app.add_middleware(
 
 app.include_router(health.router)
 app.include_router(predict.router)
+app.include_router(species.router)

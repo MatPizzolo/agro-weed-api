@@ -17,3 +17,14 @@ class PredictionResponse(BaseModel):
     predictions: list[Prediction] = Field(
         ..., description="Todas las especies ordenadas por probabilidad."
     )
+
+
+class SpeciesInfo(BaseModel):
+    """Metadatos de una clase del modelo."""
+
+    label: str = Field(..., description="Etiqueta exacta del modelo (inglés).")
+    scientific: str | None = Field(None, description="Nombre científico (binomial).")
+    common_es: str | None = Field(
+        None, description="Nombre común en español, solo si es verificable."
+    )
+    blurb: str = Field("", description="Descripción breve en español.")
