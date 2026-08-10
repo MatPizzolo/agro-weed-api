@@ -9,6 +9,9 @@ class Settings(BaseSettings):
     # Modelo a servir: ruta local o URI de MLflow.
     model_uri: str = "models/weed_classifier.keras"
 
+    # Versión del modelo servido (se informa en cada respuesta de /predict).
+    model_version: str = "dev"
+
     # Tracking de experimentos.
     mlflow_tracking_uri: str = "http://localhost:5000"
     mlflow_experiment: str = "deepweeds"

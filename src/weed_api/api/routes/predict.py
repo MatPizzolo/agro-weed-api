@@ -1,6 +1,7 @@
 """Endpoint de predicción: recibe una imagen y devuelve la especie."""
 
 import io
+import time
 from typing import Any
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
@@ -8,6 +9,7 @@ from PIL import Image, UnidentifiedImageError
 
 from weed_api.api.deps import get_model
 from weed_api.api.schemas import Prediction, PredictionResponse
+from weed_api.config import settings
 from weed_api.labels import LABELS
 from weed_api.preprocessing import preprocess_pil
 
@@ -25,11 +27,18 @@ async def predict(
         raise HTTPException(status_code=400, detail="Archivo de imagen inválido.")
 
     batch = preprocess_pil(image)
+    started = time.perf_counter()
     probabilities = model.predict(batch)[0]
+    elapsed_ms = (time.perf_counter() - started) * 1000.0
 
     predictions = sorted(
         (Prediction(label=LABELS[i], confidence=float(p)) for i, p in enumerate(probabilities)),
         key=lambda pred: pred.confidence,
         reverse=True,
     )
-    return PredictionResponse(top=predictions[0], predictions=predictions)
+    return PredictionResponse(
+        top=predictions[0],
+        predictions=predictions,
+        inference_ms=elapsed_ms,
+        model_version=settings.model_version,
+    )

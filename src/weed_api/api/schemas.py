@@ -17,6 +17,8 @@ class PredictionResponse(BaseModel):
     predictions: list[Prediction] = Field(
         ..., description="Todas las especies ordenadas por probabilidad."
     )
+    inference_ms: float = Field(..., ge=0.0, description="Duración de la inferencia en ms.")
+    model_version: str = Field(..., description="Versión del modelo servido.")
 
 
 class SpeciesInfo(BaseModel):
