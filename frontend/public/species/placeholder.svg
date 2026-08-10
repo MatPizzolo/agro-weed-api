@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Sin foto de referencia aún">
+  <rect width="200" height="200" fill="#16201b"/>
+  <path d="M100 150 C 100 110, 70 100, 62 68 C 96 74, 108 96, 108 122 C 112 98, 126 86, 144 80 C 140 112, 122 128, 104 134 Z"
+        fill="#26362e"/>
+  <text x="100" y="178" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94a89b">sin foto aún</text>
+</svg>
