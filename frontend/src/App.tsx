@@ -3,6 +3,7 @@ import { ApiError, predict } from "./api/client";
 import AnalyzingScreen from "./components/AnalyzingScreen";
 import CaptureScreen from "./components/CaptureScreen";
 import ErrorScreen from "./components/ErrorScreen";
+import HistoryStrip from "./components/HistoryStrip";
 import ResultScreen from "./components/ResultScreen";
 import { downscale } from "./lib/downscale";
 import { classifyVerdict, type Verdict } from "./lib/verdict";
@@ -29,8 +30,8 @@ const HISTORY_LIMIT = 5;
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>({ kind: "capture" });
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
   const nextId = useRef(1);
-  const setHistory = useState<HistoryEntry[]>([])[1];
 
   async function analyze(file: File, photoUrl: string) {
     setScreen({ kind: "analyzing", photoUrl });
@@ -76,7 +77,16 @@ export default function App() {
 
   return (
     <main className="flex h-dvh flex-col overflow-hidden bg-bg text-ink">
-      {screen.kind === "capture" && <CaptureScreen onCapture={handleCapture} />}
+      {screen.kind === "capture" && (
+        <CaptureScreen onCapture={handleCapture}>
+          <HistoryStrip
+            entries={history}
+            onSelect={(entry) =>
+              setScreen({ kind: "result", photoUrl: entry.photoUrl, verdict: entry.verdict })
+            }
+          />
+        </CaptureScreen>
+      )}
 
       {screen.kind === "analyzing" && <AnalyzingScreen photoUrl={screen.photoUrl} />}
 
