@@ -16,8 +16,6 @@ def load_datasets(data_dir: Path = DATA_DIR, batch_size: int = 32):
 
     Placeholder: implementar la lectura real de DeepWeeds.
     """
-    import tensorflow as tf
-
     size = settings.image_size
     raise NotImplementedError(
         f"Implementar carga de DeepWeeds desde {data_dir} "

@@ -38,3 +38,26 @@ def test_predict_includes_timing_and_version():
     assert body["inference_ms"] >= 0
     assert body["model_version"] == "dev"
     app.dependency_overrides.clear()
+
+
+def test_predict_rejects_non_image_content_type():
+    client = make_client()
+    response = client.post(
+        "/predict", files={"file": ("nota.txt", b"hola", "text/plain")}
+    )
+    assert response.status_code == 415
+    app.dependency_overrides.clear()
+
+
+def test_predict_rejects_oversized_upload(monkeypatch):
+    from weed_api.config import settings
+
+    monkeypatch.setattr(settings, "max_upload_bytes", 1024)
+    client = make_client()
+    big = jpeg_bytes(size=(2000, 2000))
+    assert len(big) > 1024
+    response = client.post(
+        "/predict", files={"file": ("foto.jpg", big, "image/jpeg")}
+    )
+    assert response.status_code == 413
+    app.dependency_overrides.clear()

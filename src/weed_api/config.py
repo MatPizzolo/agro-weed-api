@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     # Tamaño de imagen esperado por el modelo (alto = ancho).
     image_size: int = 224
 
+    # Tamaño máximo aceptado para la foto subida a /predict.
+    max_upload_bytes: int = 15 * 1024 * 1024
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]

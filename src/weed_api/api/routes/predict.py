@@ -21,8 +21,18 @@ async def predict(
     file: UploadFile = File(..., description="Foto de la planta (JPEG/PNG)."),
     model: Any = Depends(get_model),
 ) -> PredictionResponse:
+    if not (file.content_type or "").startswith("image/"):
+        raise HTTPException(status_code=415, detail="El archivo debe ser una imagen.")
+
+    contents = await file.read(settings.max_upload_bytes + 1)
+    if len(contents) > settings.max_upload_bytes:
+        mb = settings.max_upload_bytes // (1024 * 1024)
+        raise HTTPException(
+            status_code=413, detail=f"Imagen demasiado grande (máximo {mb} MB)."
+        )
+
     try:
-        image = Image.open(io.BytesIO(await file.read()))
+        image = Image.open(io.BytesIO(contents))
     except UnidentifiedImageError:
         raise HTTPException(status_code=400, detail="Archivo de imagen inválido.")
 
