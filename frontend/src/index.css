@@ -24,6 +24,34 @@ body {
   overscroll-behavior: none;
 }
 
+/* Línea de barrido de la pantalla de análisis. */
+@keyframes scan {
+  from {
+    top: 0;
+  }
+  to {
+    top: calc(100% - 2px);
+  }
+}
+
+.scan-line {
+  animation: scan 1.6s ease-in-out infinite alternate;
+}
+
+/* Barra de progreso indeterminada. */
+@keyframes indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
+.indeterminate-bar {
+  animation: indeterminate 1.2s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
