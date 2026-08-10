@@ -133,7 +133,9 @@ function ConfidentBody({
       <h1 className="mt-4 text-3xl font-bold leading-tight">
         {species?.es ?? verdict.top.label}
       </h1>
-      {species && <p className="mt-0.5 text-base italic text-muted">{species.scientific}</p>}
+      {species && species.es !== species.scientific && (
+        <p className="mt-0.5 text-base italic text-muted">{species.scientific}</p>
+      )}
 
       <div className="mt-3 flex items-center gap-2">
         <span className="rounded bg-accent/15 px-2 py-0.5 text-xs font-semibold tracking-wide text-accent">

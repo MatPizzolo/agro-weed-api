@@ -1,0 +1,18 @@
+{
+  "name": "weedApi",
+  "short_name": "weedApi",
+  "description": "Clasificador de malezas: sacá una foto y te dice qué especie es.",
+  "lang": "es",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c1210",
+  "theme_color": "#0c1210",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

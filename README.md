@@ -2,6 +2,23 @@
 
 Clasificador de malezas (DeepWeeds, 8 especies) servido como API + web mobile: sacás una foto y te dice qué maleza es.
 
+## Cómo correr la demo
+
+```bash
+# API (puerto 8000)
+make install && make serve
+
+# Frontend (puerto 5173)
+cd frontend && pnpm install && pnpm dev
+
+# Demo sin backend ni modelo entrenado: respuestas simuladas
+cd frontend && VITE_MOCK=1 pnpm dev
+```
+
+El modo mock cicla los cuatro escenarios de la UI (veredicto seguro, incierto,
+negativo y error de red), así que la interfaz completa se puede recorrer sin
+entrenar nada.
+
 ## Qué demuestra
 
 Computer vision aplicada + MLOps real (MLflow, Docker, FastAPI, deploy).

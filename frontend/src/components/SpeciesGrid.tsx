@@ -17,7 +17,7 @@ export default function SpeciesGrid() {
             className="aspect-square w-full rounded object-cover"
           />
           <p className="mt-1.5 text-sm font-medium">{s.es}</p>
-          <p className="text-xs italic text-muted">{s.scientific}</p>
+          {s.es !== s.scientific && <p className="text-xs italic text-muted">{s.scientific}</p>}
         </li>
       ))}
     </ul>
