@@ -3,6 +3,7 @@ import { ApiError, predict } from "./api/client";
 import AnalyzingScreen from "./components/AnalyzingScreen";
 import CaptureScreen from "./components/CaptureScreen";
 import ErrorScreen from "./components/ErrorScreen";
+import ResultScreen from "./components/ResultScreen";
 import { downscale } from "./lib/downscale";
 import { classifyVerdict, type Verdict } from "./lib/verdict";
 
@@ -80,22 +81,13 @@ export default function App() {
       {screen.kind === "analyzing" && <AnalyzingScreen photoUrl={screen.photoUrl} />}
 
       {screen.kind === "result" && (
-        <div className="flex h-full flex-col">
-          <div className="flex-1 overflow-y-auto p-6">
-            <pre className="whitespace-pre-wrap text-xs text-muted">
-              {JSON.stringify(screen.verdict, null, 2)}
-            </pre>
-          </div>
-          <footer className="px-6 pb-8">
-            <button
-              type="button"
-              onClick={() => setScreen({ kind: "capture" })}
-              className="h-12 w-full rounded-card bg-accent text-base font-semibold text-bg active:opacity-80"
-            >
-              Otra foto
-            </button>
-          </footer>
-        </div>
+        <ResultScreen
+          photoUrl={screen.photoUrl}
+          verdict={screen.verdict}
+          inferenceMs={screen.inferenceMs}
+          modelVersion={screen.modelVersion}
+          onRetake={() => setScreen({ kind: "capture" })}
+        />
       )}
 
       {screen.kind === "error" && (
