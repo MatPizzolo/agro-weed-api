@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0c1210;
+  --color-surface: #16201b;
+  --color-line: #26362e;
+  --color-ink: #e8f0ea;
+  --color-muted: #94a89b;
+  --color-accent: #4ade80;
+  --color-warn: #fbbf24;
+  --color-danger: #f87171;
+  --radius-card: 0.75rem;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  overscroll-behavior: none;
+}
+
+/* Línea de barrido de la pantalla de análisis. */
+@keyframes scan {
+  from {
+    top: 0;
+  }
+  to {
+    top: calc(100% - 2px);
+  }
+}
+
+.scan-line {
+  animation: scan 1.6s ease-in-out infinite alternate;
+}
+
+/* Barra de progreso indeterminada. */
+@keyframes indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
+.indeterminate-bar {
+  animation: indeterminate 1.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
